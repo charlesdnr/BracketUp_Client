@@ -9,7 +9,7 @@ import { Tournament, TournamentParticipant, TournamentStatus } from '../../../..
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="tournament-detail-page xprime">
+    <div class="tournament-detail-page">
       @if (isLoading()) {
         <div class="loading">Chargement...</div>
       } @else if (tournament()) {
@@ -277,28 +277,28 @@ import { Tournament, TournamentParticipant, TournamentStatus } from '../../../..
 
     .btn-primary {
       background: var(--primary-color);
-      color: var(--font-color-invert);
+      color: white;
     }
 
     .btn-secondary {
       background: var(--neutral-color);
-      color: var(--font-color-invert);
+      color: white;
     }
 
     .btn-success {
-      background: #28a745;
-      color: var(--font-color-invert);
+      background: var(--success-color);
+      color: white;
     }
 
     .btn-warning {
-      background: #ffc107;
-      color: var(--font-color);
+      background: var(--warn-color);
+      color: white;
     }
 
-    .btn-primary:hover { background: var(--primary-color-hover); }
+    .btn-primary:hover { opacity: 0.9; }
     .btn-secondary:hover { opacity: 0.9; }
-    .btn-success:hover { background: #218838; }
-    .btn-warning:hover { background: #e0a800; }
+    .btn-success:hover { opacity: 0.9; }
+    .btn-warning:hover { opacity: 0.9; }
 
     .content-grid {
       display: grid;

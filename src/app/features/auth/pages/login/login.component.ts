@@ -7,9 +7,9 @@ import { AuthService } from '../../../../core/services';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="login-container xprime">
+    <div class="login-container">
       <div class="login-card">
-        <h1>BrackUp</h1>
+        <h1>BracketUp</h1>
         <p>Plateforme de Gestion de Tournois</p>
 
         <button
@@ -30,56 +30,118 @@ import { AuthService } from '../../../../core/services';
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--neutral-color) 100%);
+      background: linear-gradient(135deg, var(--primary-color) 0%, #0066cc 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
 
     .login-card {
-      background: var(--container-color);
-      padding: var(--padding);
-      border-radius: var(--radius);
-      box-shadow: var(--box-shadow);
+      background: white;
+      padding: calc(var(--padding) * 3);
+      border-radius: calc(var(--radius) * 1.5);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
       text-align: center;
-      max-width: 400px;
+      max-width: 450px;
       width: 100%;
+      position: relative;
+      z-index: 1;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 0.5rem;
-      color: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary-color) 0%, #0066cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      letter-spacing: -1px;
     }
 
     p {
       color: var(--font-secondary-color);
-      margin-bottom: 2rem;
+      margin-bottom: calc(var(--padding) * 2.5);
+      font-size: 1.1rem;
     }
 
     .discord-login-btn {
       display: inline-flex;
       align-items: center;
-      gap: var(--gap);
+      gap: var(--padding);
       background: #5865F2;
-      color: var(--font-color-invert);
+      color: white;
       border: none;
-      padding: var(--padding);
-      border-radius: var(--inner-radius);
-      font-size: 1rem;
-      font-weight: 600;
+      padding: calc(var(--padding) * 1.25) calc(var(--padding) * 2);
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
       cursor: pointer;
       transition: all var(--transition-duration) ease;
       width: 100%;
       justify-content: center;
+      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discord-login-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .discord-login-btn:hover::before {
+      left: 100%;
     }
 
     .discord-login-btn:hover {
       background: #4752C4;
-      transform: translateY(-2px);
-      box-shadow: var(--box-shadow);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(88, 101, 242, 0.5);
+    }
+
+    .discord-login-btn:active {
+      transform: translateY(-1px);
     }
 
     .discord-login-btn svg {
-      width: var(--icons-size);
-      height: var(--icons-size);
+      width: calc(var(--icons-size) * 1.25);
+      height: calc(var(--icons-size) * 1.25);
     }
   `]
 })

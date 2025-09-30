@@ -1,13 +1,13 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService, AuthService } from '../../../../core/services';
 import { Team } from '../../../../core/models';
 
 @Component({
   selector: 'app-team-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   template: `
     <div class="team-detail-page">
       @if (isLoading()) {
@@ -138,31 +138,31 @@ import { Team } from '../../../../core/models';
   styles: [`
     .team-detail-page {
       min-height: 100vh;
-      background: #f5f5f5;
-      padding: 2rem 0;
+      background: var(--background-color);
+      padding: var(--padding) 0;
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 var(--padding);
     }
 
     .loading {
       text-align: center;
-      padding: 3rem;
-      color: #666;
+      padding: calc(var(--padding) * 2);
+      color: var(--font-secondary-color);
     }
 
     .team-header {
-      background: white;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: var(--container-color);
+      padding: var(--padding);
+      border-radius: var(--radius);
+      box-shadow: var(--box-shadow);
       display: flex;
-      gap: 2rem;
+      gap: var(--padding);
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: var(--padding);
     }
 
     .team-logo {
@@ -176,7 +176,7 @@ import { Team } from '../../../../core/models';
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: var(--primary-color);
       color: white;
       display: flex;
       align-items: center;
@@ -192,18 +192,18 @@ import { Team } from '../../../../core/models';
     .team-name {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
+      gap: var(--gap);
+      margin-bottom: calc(var(--gap) / 2);
     }
 
     h1 {
       font-size: 2.5rem;
-      color: #333;
+      color: var(--font-color);
       margin: 0;
     }
 
     .team-tag {
-      color: #667eea;
+      color: var(--primary-color);
       font-size: 2rem;
       font-weight: 600;
     }
@@ -211,94 +211,94 @@ import { Team } from '../../../../core/models';
     .game-info {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      color: #666;
+      gap: var(--gap);
+      color: var(--font-secondary-color);
     }
 
     .game-info img {
-      width: 32px;
-      height: 32px;
-      border-radius: 0.25rem;
+      width: var(--icons-size);
+      height: var(--icons-size);
+      border-radius: var(--inner-radius);
     }
 
     .actions {
       display: flex;
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .btn-primary, .btn-secondary, .btn-danger, .btn-text {
-      padding: 0.75rem 1.5rem;
+      padding: calc(var(--gap) * 0.75) calc(var(--padding) * 1.5);
       border: none;
-      border-radius: 0.5rem;
+      border-radius: var(--inner-radius);
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.3s;
+      transition: all var(--transition-duration);
     }
 
     .btn-primary {
-      background: #667eea;
+      background: var(--primary-color);
       color: white;
     }
 
     .btn-secondary {
-      background: #6c757d;
+      background: var(--neutral-color);
       color: white;
     }
 
     .btn-danger {
-      background: #dc3545;
+      background: var(--danger-color);
       color: white;
     }
 
     .btn-text {
       background: transparent;
-      color: #667eea;
-      padding: 0.5rem;
+      color: var(--primary-color);
+      padding: calc(var(--gap) / 2);
     }
 
-    .btn-primary:hover { background: #5568d3; }
-    .btn-secondary:hover { background: #5a6268; }
-    .btn-danger:hover { background: #c82333; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary:hover { opacity: 0.9; }
+    .btn-danger:hover { opacity: 0.9; }
     .btn-text:hover { text-decoration: underline; }
 
     .content-grid {
       display: grid;
       grid-template-columns: 1fr 350px;
-      gap: 2rem;
+      gap: var(--padding);
     }
 
     .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      background: var(--container-color);
+      padding: var(--padding);
+      border-radius: var(--radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: var(--padding);
     }
 
     .card h2, .card h3 {
-      margin: 0 0 1.5rem 0;
-      color: #333;
+      margin: 0 0 var(--padding) 0;
+      color: var(--font-color);
     }
 
     .members-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .member-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem;
-      background: #f8f9fa;
-      border-radius: 0.5rem;
+      padding: var(--gap);
+      background: var(--background-color);
+      border-radius: var(--inner-radius);
     }
 
     .member-info {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .avatar {
@@ -311,7 +311,7 @@ import { Team } from '../../../../core/models';
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: #667eea;
+      background: var(--primary-color);
       color: white;
       display: flex;
       align-items: center;
@@ -326,13 +326,13 @@ import { Team } from '../../../../core/models';
 
     .username {
       font-weight: 600;
-      color: #333;
+      color: var(--font-color);
     }
 
     .role {
       font-size: 0.875rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
+      padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
+      border-radius: var(--inner-radius);
       width: fit-content;
     }
 
@@ -353,25 +353,25 @@ import { Team } from '../../../../core/models';
 
     .member-actions {
       display: flex;
-      gap: 0.5rem;
+      gap: calc(var(--gap) / 2);
     }
 
     .add-member {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
+      margin-top: var(--gap);
+      padding-top: var(--gap);
+      border-top: 1px solid var(--border-color);
     }
 
     .empty {
       text-align: center;
-      color: #999;
-      padding: 2rem;
+      color: var(--font-secondary-color);
+      padding: var(--padding);
     }
 
     .info-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .info-item {
@@ -380,13 +380,13 @@ import { Team } from '../../../../core/models';
     }
 
     .info-item .label {
-      color: #999;
+      color: var(--font-secondary-color);
       font-size: 0.875rem;
     }
 
     .info-item .value {
       font-weight: 600;
-      color: #333;
+      color: var(--font-color);
     }
 
     @media (max-width: 1024px) {

@@ -30,17 +30,7 @@ export class AuthService {
   });
 
   constructor() {
-    this.initializeAuth();
-  }
-
-  /**
-   * Initialiser l'authentification au démarrage de l'application
-   */
-  private async initializeAuth(): Promise<void> {
-    const token = this.getToken();
-    if (token) {
-      await this.verifyToken();
-    }
+    // L'initialisation est maintenant gérée par APP_INITIALIZER dans app.config.ts
   }
 
   /**

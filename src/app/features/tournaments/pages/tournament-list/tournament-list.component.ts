@@ -1,15 +1,13 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { Select } from 'primeng/select';
-import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { SkeletonModule } from 'primeng/skeleton';
-import { TournamentService, GameService } from '../../../../core/services';
+import { TournamentService, GameService, AuthService } from '../../../../core/services';
 import { TournamentStatus } from '../../../../core/models';
+import { HeaderComponent, FooterComponent, SearchBarComponent, FilterSelectComponent } from '../../../../shared/components';
 
 @Component({
   selector: 'app-tournament-list',
@@ -17,45 +15,61 @@ import { TournamentStatus } from '../../../../core/models';
   imports: [
     CommonModule,
     RouterLink,
-    FormsModule,
     ButtonModule,
     CardModule,
-    Select,
-    InputTextModule,
     TagModule,
-    SkeletonModule
+    SkeletonModule,
+    HeaderComponent,
+    FooterComponent,
+    SearchBarComponent,
+    FilterSelectComponent
   ],
   template: `
-    <div class="tournament-list-page xprime">
-      <div class="container">
-        <div class="header">
-          <h1>Tournois</h1>
-          <p-button
-            label="Créer un tournoi"
-            icon="pi pi-plus"
-            routerLink="/tournaments/create"
-            severity="primary" />
+    <div class="tournament-list-page">
+      <app-header></app-header>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+          <h1 class="hero-title">Tous les <span class="gradient-text">Tournois</span></h1>
+          <p class="hero-subtitle">Découvrez et participez aux compétitions gaming professionnelles</p>
+          @if (authService.isModerator()) {
+            <button (click)="navigateToCreate()" class="btn-create-hero">
+              <i class="pi pi-plus"></i>
+              <span>Créer un tournoi</span>
+            </button>
+          }
         </div>
+      </section>
+
+      <div class="container">
+        <!-- Search Bar -->
+        <app-search-bar
+          [value]="searchQuery()"
+          (valueChange)="searchQuery.set($event)"
+          [placeholder]="'🔍 Rechercher un tournoi par nom...'" />
 
         <!-- Filters -->
-        <div class="filters">
-          <p-select
-            [(ngModel)]="selectedGame"
-            [options]="gameOptions()"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Tous les jeux"
-            (onChange)="onFilterChange()"
-            [style]="{'min-width': '200px'}" />
+        <div class="filters-section">
+          <h2>Filtrer les tournois</h2>
+          <div class="filters">
+            <app-filter-select
+              label="Jeu"
+              [value]="selectedGame()"
+              (valueChange)="selectedGame.set($event)"
+              [options]="gameOptions()"
+              placeholder="Tous les jeux"
+              filterPlaceholder="Rechercher un jeu..." />
 
-          <p-select
-            [(ngModel)]="selectedStatus"
-            [options]="statusOptions"
-            optionLabel="label"
-            optionValue="value"
-            placeholder="Tous les statuts"
-            (onChange)="onFilterChange()"
-            [style]="{'min-width': '200px'}" />
+            <app-filter-select
+              label="Statut"
+              [value]="selectedStatus()"
+              (valueChange)="selectedStatus.set($event)"
+              [options]="statusOptions"
+              placeholder="Tous les statuts"
+              filterPlaceholder="Rechercher un statut..." />
+          </div>
         </div>
 
         <!-- Loading -->
@@ -129,39 +143,236 @@ import { TournamentStatus } from '../../../../core/models';
           </div>
         }
       </div>
+
+      <app-footer></app-footer>
     </div>
   `,
   styles: [`
     .tournament-list-page {
-      padding: var(--padding) 0;
       min-height: 100vh;
       background: var(--background-color);
+    }
+
+    ::ng-deep {
+      .p-inputicon{
+        top: 38%;
+      }
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--primary-color) 0%, #0066cc 100%);
+      color: white;
+      padding: calc(var(--padding) * 10) 0 calc(var(--padding) * 6) 0;
+      text-align: center;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 30%, rgba(255, 255, 255, 0.03) 70%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.03) 30%, rgba(255, 255, 255, 0.03) 70%, transparent 70%);
+      background-size: 100px 100px;
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      margin-bottom: var(--padding);
+      color: white;
+      font-weight: 800;
+      line-height: 1.1;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #ffffff, #e0f0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .hero-subtitle {
+      font-size: 1.35rem;
+      margin-bottom: calc(var(--padding) * 2);
+      color: white;
+      opacity: 0.95;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .btn-create-hero {
+      padding: calc(var(--padding) * 1.25) calc(var(--padding) * 2.5);
+      border-radius: 50px;
+      border: none;
+      background: white;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: all var(--transition-duration);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--gap);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-create-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 var(--padding);
+      padding: calc(var(--padding) * 3) var(--padding) var(--padding) var(--padding);
     }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--padding);
-      gap: var(--gap);
+    .filters-section {
+      margin-bottom: calc(var(--padding) * 3);
     }
 
-    h1 {
-      font-size: 2.5rem;
+    .filters-section h2 {
+      font-size: 2rem;
       color: var(--font-color);
+      margin-bottom: var(--padding);
+      font-weight: 700;
     }
 
     .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: calc(var(--padding) * 1.5);
+    }
+
+    :host ::ng-deep .custom-select .p-select-label.p-placeholder {
+      color: #666666 !important;
+      opacity: 1;
+    }
+
+    :host ::ng-deep .custom-select .p-select-dropdown {
+      color: var(--primary-color);
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-option {
+      padding: calc(var(--gap) * 0.75) var(--padding);
+      border-radius: 8px;
+      margin: 0 calc(var(--gap) / 2);
+      transition: all var(--transition-duration);
+      font-weight: 500;
+      color: var(--font-color) !important;
+    }
+
+    :host ::ng-deep .p-select-overlay {
+      border-radius: 16px;
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      padding: calc(var(--gap) / 2);
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-filter {
+      padding: var(--gap);
+      padding-bottom: calc(var(--gap) / 2);
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-filter-container {
+      position: relative;
       display: flex;
-      gap: var(--gap);
-      margin-bottom: var(--padding);
-      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-filter-icon {
+      position: absolute;
+      left: calc(var(--padding) * 0.75);
+      color: var(--primary-color);
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-filter-input {
+      border-radius: 12px;
+      border: 2px solid var(--border-color);
+      padding: calc(var(--gap) * 0.75) var(--padding);
+      padding-left: calc(var(--padding) * 2.5);
+      font-size: 0.95rem;
+      transition: all var(--transition-duration);
+      color: #1a1a1a !important;
+      background: white;
+      width: 100%;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-filter-input::placeholder {
+      color: #666666 !important;
+      opacity: 1;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-filter-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+      outline: none;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-option:hover {
+      background: rgba(0, 102, 204, 0.08);
+      color: #0066cc !important;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-option.p-select-option-selected {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #0066cc 100%);
+      color: white !important;
+      font-weight: 700;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-option.p-select-option-selected:hover {
+      background: linear-gradient(135deg, #0055aa 0%, #0052b3 100%);
+      color: white !important;
+    }
+
+    :host ::ng-deep .p-select-overlay .p-select-list {
+      padding: calc(var(--gap) / 2);
     }
 
     .tournaments-grid {
@@ -173,11 +384,13 @@ import { TournamentStatus } from '../../../../core/models';
     :host ::ng-deep .tournament-card {
       cursor: pointer;
       transition: all var(--transition-duration);
+      border: 1px solid transparent;
     }
 
     :host ::ng-deep .tournament-card:hover {
       transform: translateY(-5px);
-      box-shadow: var(--box-shadow);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border-color: var(--primary-color);
     }
 
     .tournament-banner {
@@ -264,9 +477,12 @@ import { TournamentStatus } from '../../../../core/models';
   `]
 })
 export class TournamentListComponent implements OnInit {
+  private readonly router = inject(Router);
   protected readonly tournamentService = inject(TournamentService);
   protected readonly gameService = inject(GameService);
+  protected readonly authService = inject(AuthService);
 
+  protected readonly searchQuery = signal<string>('');
   protected readonly selectedGame = signal<string>('');
   protected readonly selectedStatus = signal<string>('');
 
@@ -285,10 +501,20 @@ export class TournamentListComponent implements OnInit {
   protected readonly filteredTournaments = computed(() => {
     let tournaments = this.tournamentService.tournaments();
 
+    // Filtre par recherche textuelle
+    if (this.searchQuery()) {
+      const query = this.searchQuery().toLowerCase();
+      tournaments = tournaments.filter(t =>
+        t.name.toLowerCase().includes(query)
+      );
+    }
+
+    // Filtre par jeu
     if (this.selectedGame()) {
       tournaments = tournaments.filter(t => t.gameId === this.selectedGame());
     }
 
+    // Filtre par statut
     if (this.selectedStatus()) {
       tournaments = tournaments.filter(t => t.status === this.selectedStatus());
     }
@@ -303,8 +529,16 @@ export class TournamentListComponent implements OnInit {
     ]);
   }
 
+  onSearchChange(): void {
+    // Recherche gérée par computed signal
+  }
+
   onFilterChange(): void {
     // Filtrage géré par computed signal
+  }
+
+  async navigateToCreate(): Promise<void> {
+    await this.router.navigate(['/tournaments/create']);
   }
 
   getStatusLabel(status: TournamentStatus): string {

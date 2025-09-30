@@ -186,37 +186,37 @@ import { TournamentFormat, CreateTournamentDto } from '../../../../core/models';
   styles: [`
     .tournament-create-page {
       min-height: 100vh;
-      background: #f5f5f5;
-      padding: 2rem 0;
+      background: var(--background-color);
+      padding: var(--padding) 0;
     }
 
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 var(--padding);
     }
 
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: var(--padding);
     }
 
     h1 {
       font-size: 2.5rem;
-      color: #333;
+      color: var(--font-color);
     }
 
     .tournament-form {
-      background: white;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background: var(--container-color);
+      border-radius: var(--radius);
+      box-shadow: var(--box-shadow);
     }
 
     .form-section {
-      padding: 2rem;
-      border-bottom: 1px solid #eee;
+      padding: var(--padding);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .form-section:last-child {
@@ -225,39 +225,41 @@ import { TournamentFormat, CreateTournamentDto } from '../../../../core/models';
 
     .form-section h2 {
       font-size: 1.5rem;
-      color: #333;
-      margin: 0 0 1.5rem 0;
+      color: var(--font-color);
+      margin: 0 0 var(--padding) 0;
     }
 
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--padding);
     }
 
     .form-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     label {
       display: block;
-      margin-bottom: 0.5rem;
-      color: #555;
+      margin-bottom: calc(var(--gap) / 2);
+      color: var(--font-secondary-color);
       font-weight: 600;
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 0.5rem;
+      padding: calc(var(--gap) * 0.75);
+      border: 1px solid var(--border-color);
+      border-radius: var(--inner-radius);
       font-size: 1rem;
-      transition: border-color 0.3s;
+      transition: border-color var(--transition-duration);
+      background: var(--container-color);
+      color: var(--font-color);
     }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: var(--primary-color);
     }
 
     textarea {
@@ -266,43 +268,44 @@ import { TournamentFormat, CreateTournamentDto } from '../../../../core/models';
     }
 
     .form-actions {
-      padding: 2rem;
+      padding: var(--padding);
       display: flex;
       justify-content: flex-end;
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .btn-primary, .btn-secondary {
-      padding: 0.75rem 2rem;
+      padding: calc(var(--gap) * 0.75) calc(var(--padding) * 2);
       border: none;
-      border-radius: 0.5rem;
+      border-radius: var(--inner-radius);
       cursor: pointer;
       font-weight: 600;
       font-size: 1rem;
-      transition: all 0.3s;
+      transition: all var(--transition-duration);
     }
 
     .btn-primary {
-      background: #667eea;
+      background: var(--primary-color);
       color: white;
     }
 
     .btn-primary:hover:not(:disabled) {
-      background: #5568d3;
+      opacity: 0.9;
     }
 
     .btn-primary:disabled {
-      background: #ccc;
+      background: var(--neutral-color);
       cursor: not-allowed;
+      opacity: 0.5;
     }
 
     .btn-secondary {
-      background: #6c757d;
+      background: var(--neutral-color);
       color: white;
     }
 
     .btn-secondary:hover {
-      background: #5a6268;
+      opacity: 0.9;
     }
   `]
 })

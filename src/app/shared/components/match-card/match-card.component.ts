@@ -66,11 +66,11 @@ import { Match } from '../../../core/models';
   `,
   styles: [`
     .match-card {
-      background: white;
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s;
+      background: var(--container-color);
+      border-radius: var(--radius);
+      padding: var(--padding);
+      box-shadow: var(--box-shadow);
+      transition: all var(--transition-duration);
       position: relative;
     }
 
@@ -85,10 +85,10 @@ import { Match } from '../../../core/models';
 
     .match-status {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 0.5rem;
+      top: var(--gap);
+      right: var(--gap);
+      padding: calc(var(--gap) / 4) calc(var(--gap) * 0.75);
+      border-radius: var(--inner-radius);
       font-size: 0.75rem;
       font-weight: 600;
     }
@@ -119,35 +119,35 @@ import { Match } from '../../../core/models';
     }
 
     .match-info {
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--padding);
     }
 
     .match-round {
       font-weight: 600;
-      color: #667eea;
-      margin-bottom: 0.25rem;
+      color: var(--primary-color);
+      margin-bottom: calc(var(--gap) / 4);
     }
 
     .match-schedule {
       font-size: 0.875rem;
-      color: #666;
+      color: var(--font-secondary-color);
     }
 
     .participants {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      gap: var(--gap);
+      margin-bottom: var(--gap);
     }
 
     .participant {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem;
-      background: #f8f9fa;
-      border-radius: 0.5rem;
-      transition: all 0.3s;
+      padding: calc(var(--gap) * 0.75);
+      background: var(--background-color);
+      border-radius: var(--inner-radius);
+      transition: all var(--transition-duration);
     }
 
     .participant.winner {
@@ -161,32 +161,32 @@ import { Match } from '../../../core/models';
     }
 
     .tbd {
-      color: #999;
+      color: var(--font-secondary-color);
       font-style: italic;
     }
 
     .participant-score {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #333;
+      color: var(--font-color);
       min-width: 40px;
       text-align: right;
     }
 
     .vs {
       text-align: center;
-      color: #999;
+      color: var(--font-secondary-color);
       font-weight: 600;
       font-size: 0.875rem;
-      margin: 0.25rem 0;
+      margin: calc(var(--gap) / 4) 0;
     }
 
     .match-format {
       text-align: center;
-      color: #666;
+      color: var(--font-secondary-color);
       font-size: 0.875rem;
-      padding-top: 1rem;
-      border-top: 1px solid #eee;
+      padding-top: var(--gap);
+      border-top: 1px solid var(--border-color);
     }
   `]
 })

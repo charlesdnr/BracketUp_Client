@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService, UserService } from '../../../../core/services';
 import { User, UserStats } from '../../../../core/models';
+import { HeaderComponent, FooterComponent } from '../../../../shared/components';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, HeaderComponent, FooterComponent],
   template: `
     <div class="profile-page">
+      <app-header></app-header>
       <div class="container">
         @if (isLoading()) {
           <div class="loading">Chargement...</div>
@@ -123,33 +125,33 @@ import { User, UserStats } from '../../../../core/models';
           </div>
         }
       </div>
+      <app-footer></app-footer>
     </div>
   `,
   styles: [`
     .profile-page {
       min-height: 100vh;
-      background: #f5f5f5;
-      padding: 2rem 0;
+      background: var(--background-color);
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: calc(var(--padding) * 7) var(--padding) var(--padding) var(--padding);
     }
 
     .loading {
       text-align: center;
-      padding: 3rem;
-      color: #666;
+      padding: calc(var(--padding) * 2);
+      color: var(--font-secondary-color);
     }
 
     .profile-header {
-      background: white;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      background: var(--container-color);
+      padding: var(--padding);
+      border-radius: var(--radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: var(--padding);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -157,7 +159,7 @@ import { User, UserStats } from '../../../../core/models';
 
     .profile-avatar-section {
       display: flex;
-      gap: 1.5rem;
+      gap: var(--padding);
       align-items: center;
     }
 
@@ -172,7 +174,7 @@ import { User, UserStats } from '../../../../core/models';
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: var(--primary-color);
       color: white;
       display: flex;
       align-items: center;
@@ -184,23 +186,23 @@ import { User, UserStats } from '../../../../core/models';
     .profile-info {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: calc(var(--gap) / 2);
     }
 
     h1 {
       font-size: 2.5rem;
-      color: #333;
+      color: var(--font-color);
       margin: 0;
     }
 
     .discriminator {
-      color: #999;
+      color: var(--font-secondary-color);
       font-size: 1.25rem;
     }
 
     .role {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      padding: calc(var(--gap) / 2) var(--gap);
+      border-radius: var(--inner-radius);
       font-weight: 600;
       width: fit-content;
     }
@@ -212,7 +214,7 @@ import { User, UserStats } from '../../../../core/models';
 
     .role-admin {
       background: #dc3545;
-      color: white;
+      color: var(--font-color-invert);
     }
 
     .role-moderator {
@@ -221,26 +223,26 @@ import { User, UserStats } from '../../../../core/models';
     }
 
     .btn-primary, .btn-danger {
-      padding: 0.75rem 2rem;
+      padding: calc(var(--gap) * 0.75) calc(var(--padding) * 2);
       border: none;
-      border-radius: 0.5rem;
+      border-radius: var(--inner-radius);
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.3s;
+      transition: all var(--transition-duration);
     }
 
     .btn-primary {
-      background: #667eea;
+      background: var(--primary-color);
       color: white;
     }
 
     .btn-danger {
-      background: #dc3545;
+      background: var(--danger-color);
       color: white;
     }
 
-    .btn-primary:hover { background: #5568d3; }
-    .btn-danger:hover { background: #c82333; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-danger:hover { opacity: 0.9; }
 
     .full-width {
       width: 100%;
@@ -249,76 +251,78 @@ import { User, UserStats } from '../../../../core/models';
     .content-grid {
       display: grid;
       grid-template-columns: 1fr 350px;
-      gap: 2rem;
+      gap: var(--padding);
     }
 
     .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
+      background: var(--container-color);
+      padding: var(--padding);
+      border-radius: var(--radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: var(--padding);
     }
 
     .card h2, .card h3 {
-      margin: 0 0 1.5rem 0;
-      color: #333;
+      margin: 0 0 var(--padding) 0;
+      color: var(--font-color);
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .stat-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 1.5rem;
-      border-radius: 0.5rem;
+      background: var(--primary-color);
+      padding: var(--padding);
+      border-radius: var(--inner-radius);
       text-align: center;
       color: white;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: calc(var(--gap) / 2);
     }
 
     .stat-value {
       font-size: 2rem;
       font-weight: bold;
+      color: white;
     }
 
     .stat-label {
       font-size: 0.875rem;
-      opacity: 0.9;
+      color: white;
+      opacity: 0.95;
     }
 
     .empty {
       text-align: center;
-      color: #999;
-      padding: 2rem;
-      margin-bottom: 1rem;
+      color: var(--font-secondary-color);
+      padding: var(--padding);
+      margin-bottom: var(--gap);
     }
 
     .info-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: var(--gap);
     }
 
     .info-item {
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: calc(var(--gap) / 4);
     }
 
     .info-item .label {
-      color: #999;
+      color: var(--font-secondary-color);
       font-size: 0.875rem;
     }
 
     .info-item .value {
       font-weight: 600;
-      color: #333;
+      color: var(--font-color);
     }
 
     @media (max-width: 1024px) {
@@ -328,7 +332,7 @@ import { User, UserStats } from '../../../../core/models';
 
       .profile-header {
         flex-direction: column;
-        gap: 2rem;
+        gap: var(--padding);
       }
     }
   `]
