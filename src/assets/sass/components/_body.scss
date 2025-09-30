@@ -1,0 +1,10 @@
+@use "../core";
+
+body {
+   background-color: var(--background-color);
+   font-family: core.$font-familly;
+   color: var(--font-color);
+   color-scheme: var(--color-sheme);
+   // Transition entre le changement des themes
+   @include core.transition(all, core.$transition-duration);
+}

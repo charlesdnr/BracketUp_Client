@@ -27,7 +27,10 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/sass/themes/onyx-dark.scss",
+              "src/assets/sass/themes/onyx-light.scss",
+              "node_modules/primeicons/primeicons.css"
             ]
           },
           "configurations": {

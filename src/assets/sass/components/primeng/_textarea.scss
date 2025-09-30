@@ -1,0 +1,44 @@
+.p-textarea.xprime {
+  width: 100%;
+  min-height: var(--inputs-size, 48px);
+  padding: calc(var(--inputs-size, 48px) / 6) calc(var(--inputs-size, 48px) / 4);
+  background-color: var(--input-color);
+  color: var(--font-color);
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+  border-radius: 6px;
+  font-family: var(--font-familly);
+  font-size: var(--font-size-md, 1rem);
+  line-height: 1.5;
+  transition: all var(--transition-duration, 0.25s) ease;
+  box-shadow: var(--box-shadow);
+  resize: vertical;
+  
+  &::placeholder {
+    color: var(--placeholder-color);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+  }
+  
+  &:disabled {
+    background-color: var(--disabled-color);
+    color: var(--font-disabled-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+    resize: none;
+  }
+  
+  &.p-invalid {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 2px rgba(var(--danger-color-rgb), 0.1);
+  }
+  
+  // Auto-resize functionality
+  &.p-inputtextarea-resizable {
+    overflow: hidden;
+    resize: none;
+  }
+}

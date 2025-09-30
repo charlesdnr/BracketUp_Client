@@ -1,0 +1,31 @@
+@use "../../core";
+
+/* TabMenu */
+.p-tabmenu.xprime {
+  .p-tabmenu .p-tabmenu-nav {
+    background-color: transparent;
+    font-family: core.$font-familly, sans-serif;
+    color: core.$font-color;
+  }
+
+  .p-tabmenu-nav {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .p-tabmenuitem {
+    margin: 0.3rem;
+  }
+
+  .p-highlight {
+    color: core.$primary-color;
+  }
+
+  .p-menuitem-link {
+    @include core.add-vendor-prefixes(border, solid 0);
+    display: flex;
+    width: 100%;
+    @include core.border-radius(0);
+    gap: 0.4rem;
+  }
+}

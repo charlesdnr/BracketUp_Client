@@ -1,0 +1,168 @@
+.p-fileupload.xprime {
+  border: 1px solid var(--background-color-darker);
+  background: var(--container-color);
+  border-radius: var(--radius);
+  box-shadow: var(--box-shadow);
+  
+  .p-fileupload-header {
+    background: var(--background-color);
+    padding: var(--padding);
+    border-bottom: 1px solid var(--background-color-darker);
+    border-radius: var(--radius) var(--radius) 0 0;
+    display: flex;
+    gap: var(--gap);
+    align-items: center;
+  }
+
+  .p-fileupload-choose-button,
+  .p-fileupload-upload-button,
+  .p-fileupload-cancel-button {
+    background: var(--primary-color);
+    color: var(--font-color-invert);
+    border: none;
+    border-radius: var(--inner-radius);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-duration) ease;
+    
+    &:hover {
+      background: var(--primary-color-transparent-800);
+    }
+    
+    &:disabled {
+      background: var(--disabled-color);
+      color: var(--font-disabled-color);
+      cursor: not-allowed;
+    }
+  }
+
+  .p-fileupload-cancel-button {
+    background: var(--danger-color);
+    
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  .p-fileupload-content {
+    padding: var(--padding);
+    background: var(--container-color);
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+
+  .p-fileupload-file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
+  .p-fileupload-file {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    padding: 0.75rem;
+    background: var(--input-color);
+    border: 1px solid var(--background-color-darker);
+    border-radius: var(--inner-radius);
+    transition: all var(--transition-duration) ease;
+    
+    &:hover {
+      background: var(--background-color-lighter);
+    }
+  }
+
+  .p-fileupload-file-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--inner-radius);
+    object-fit: cover;
+    background: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .p-fileupload-file-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .p-fileupload-file-name {
+    font-weight: 500;
+    color: var(--font-color);
+    font-size: 0.875rem;
+  }
+
+  .p-fileupload-file-size {
+    color: var(--font-secondary-color);
+    font-size: 0.75rem;
+  }
+
+  .p-fileupload-file-badge {
+    background: var(--success-color);
+    color: var(--font-color-invert);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--inner-radius);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .p-fileupload-file-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .p-fileupload-file-remove-button {
+    background: var(--danger-color-transparent-200);
+    color: var(--danger-color);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-duration) ease;
+    
+    &:hover {
+      background: var(--danger-color);
+      color: var(--font-color-invert);
+    }
+  }
+
+  // État vide
+  &.p-fileupload-empty {
+    .p-fileupload-content {
+      text-align: center;
+      padding: 2rem;
+      color: var(--font-secondary-color);
+      
+      &::before {
+        content: "📁";
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  // Zone de drop
+  &.p-fileupload-dragover {
+    border-color: var(--primary-color);
+    background: var(--primary-color-transparent-50);
+    
+    .p-fileupload-content {
+      background: var(--primary-color-transparent-50);
+    }
+  }
+}

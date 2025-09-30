@@ -1,0 +1,79 @@
+@use "../core";
+@use "../core/variables" as var;
+@use "sass:color";
+
+@mixin _outline-style($color) {
+   &.outlined {
+      color: var(--font-color);
+      background-color: transparent;
+      border: 2px solid #{$color};
+
+      &:disabled {
+         color: var(--font-disabled-color);
+         border: 2px solid var(--disabled-color);
+      }
+   }
+}
+
+@mixin _light-style($color){
+   &.light {
+      color: $color;
+      // color: mix(white, $color, 10%);
+      font-weight: 500;
+      background-color: color.mix(transparent, $color, 70%);
+
+      &:disabled {
+         color: var(--disabled-color);
+         background-color: var(--disabled-color);
+         opacity: 0.5;
+      }
+   }
+}
+
+$button-types: (
+   primary: var.$primary-color,
+   danger: var.$danger-color,
+   success: var.$success-color,
+   warn: var.$warn-color,
+   info: var.$info-color
+);
+
+button.x {
+   cursor: pointer;
+   background-color: transparent;
+   height: var(--inputs-size);
+   padding: 0 calc(var(--inputs-size) / 4);
+   gap: calc(var(--gap) / 2);
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   @include core.border();
+
+   &.icon {
+      // height: core.$inputs-size;
+      // width: core.$inputs-size;
+      aspect-ratio: 1 / 1;
+      padding: unset;
+
+      justify-content: center;
+      align-items: center;
+      @include _outline-style(var(--font-color));
+   }
+
+   @each $type, $color in $button-types {
+      &.#{$type} {
+         color: var(--font-color-invert);
+         background-color: var(--#{$type}-color);
+         @include _outline-style(var(--#{$type}-color));
+         @include _light-style($color);
+      }
+   }
+
+   &:disabled {
+      color: var(--font-disabled-color);
+      background-color: var(--disabled-color);
+      cursor: default;
+   }
+}
+

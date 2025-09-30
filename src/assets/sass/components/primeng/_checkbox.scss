@@ -1,0 +1,101 @@
+.p-checkbox.xprime {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  .p-checkbox-box {
+    width: var(--inputs-size-sm, 1.5rem);
+    height: var(--inputs-size-sm, 1.5rem);
+    border: 2px solid var(--border-color);
+    border-radius: var(--inner-radius);
+    background-color: var(--background-color);
+    transition: all var(--transition-duration) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    &:hover {
+      border-color: var(--primary-color-transparent-50);
+      background-color: var(--container-color);
+    }
+    
+    .p-checkbox-icon {
+      font-size: calc(var(--font-size-sm) * 0.9);
+      color: var(--font-color-invert);
+      opacity: 0;
+      transition: opacity var(--transition-duration) ease;
+    }
+  }
+  
+  &.p-checkbox-checked {
+    .p-checkbox-box {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      
+      .p-checkbox-icon {
+        opacity: 1;
+      }
+    }
+  }
+  
+  &.p-checkbox-disabled {
+    .p-checkbox-box {
+      background-color: var(--disabled-color);
+      border-color: var(--border-color);
+      cursor: not-allowed;
+      opacity: 0.6;
+      
+      &:hover {
+        border-color: var(--border-color);
+        background-color: var(--disabled-color);
+      }
+    }
+  }
+  
+  &:focus-within {
+    .p-checkbox-box {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+    }
+  }
+  
+  // Support pour les labels
+  .p-checkbox-label {
+    margin-left: calc(var(--gap) / 2);
+    font-size: var(--font-size-sm);
+    color: var(--font-color);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+}
+
+// Styles pour les groupes de checkboxes
+.p-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) / 2);
+  
+  &.p-checkbox-group-horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap);
+  }
+}
+
+// Animation pour le check
+@keyframes checkmark {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.p-checkbox.xprime.p-checkbox-checked .p-checkbox-box .p-checkbox-icon {
+  animation: checkmark 0.2s ease-out;
+}

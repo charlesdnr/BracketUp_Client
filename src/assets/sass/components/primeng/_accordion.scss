@@ -1,0 +1,16 @@
+.p-accordion.xprime {
+  .p-accordion .p-accordion-content {
+    transition: max-height 0.15s ease-in-out !important;
+  }
+
+  .p-accordion .p-accordion-header .p-accordion-header-icon {
+    transition: transform 0.15s !important;
+  }
+
+  .p-accordioncontent-content {
+    padding: 0;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    padding-bottom: var(--padding);
+  }
+}

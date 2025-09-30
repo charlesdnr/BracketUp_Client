@@ -1,0 +1,105 @@
+.p-select.xprime {
+  width: 100%;
+  background-color: var(--input-color);
+
+  .p-select-dropdown {
+    background-color: var(--input-color);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    color: var(--font-secondary-color);
+    transition: all var(--transition-duration, 0.25s) ease;
+  }
+
+  ol,ul {
+    padding-left: 0;
+  }
+
+  .p-select-label {
+    width: 100%;
+    background-color: var(--input-color);
+    color: var(--font-color);
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    font-family: var(--font-familly);
+    font-size: var(--font-size-md, 1rem);
+    transition: all var(--transition-duration, 0.25s) ease;
+
+    &.p-placeholder {
+      color: var(--placeholder-color);
+    }
+  }
+
+
+
+  &:not(.p-disabled):hover {
+    .p-select-label {
+      border-color: var(--primary-color);
+    }
+  }
+
+  &:not(.p-disabled).p-focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+  }
+
+  &:disabled {
+      background-color: var(--disabled-color);
+      color: var(--font-disabled-color);
+      cursor: not-allowed;
+      opacity: 0.6;
+
+
+    .p-select-dropdown {
+      background-color: var(--disabled-color);
+      color: var(--font-disabled-color);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+
+  &.p-invalid {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 2px rgba(var(--danger-color-rgb), 0.1);
+  }
+}
+
+.p-select-overlay {
+  background: var(--container-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: var(--box-shadow);
+
+  .p-select-option {
+    padding: calc(var(--inputs-size, 48px) / 4) calc(var(--inputs-size, 48px) / 3);
+    color: var(--font-color);
+    font-size: var(--font-size-md, 1rem);
+    font-family: var(--font-familly);
+    transition: all var(--transition-duration, 0.25s) ease;
+    border-radius: 4px;
+    margin: 2px 4px;
+
+    &:hover {
+      background: var(--primary-color-transparent-50);
+      color: var(--primary-color);
+    }
+
+    &.p-selected {
+      background: var(--primary-color-transparent-100);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    &.p-disabled {
+      color: var(--font-disabled-color);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}
+
+.p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus{
+  background: var(--primary-color-transparent-50);
+      color: var(--primary-color);
+}
+}

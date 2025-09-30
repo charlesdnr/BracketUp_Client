@@ -1,0 +1,401 @@
+@use "../../core/variables" as var;
+
+// Styles pour les dialogues/modales PrimeNG - Spécificité haute
+.p-dialog,
+.p-dialog.xprime,
+.p-confirm-dialog {
+  border-radius: var.$radius;
+  box-shadow: var.$box-shadow;
+  border: none;
+  
+  .p-dialog-header {
+    background-color: var(--container-color);
+    color: var(--font-color);
+    border-bottom: 1px solid var(--light-grey);
+    font-family: var(--font-familly);
+    font-weight: 600;
+    border-radius: var.$radius var.$radius 0 0;
+    padding: var.$padding;
+    
+    .p-dialog-header-icon {
+      color: var(--font-color);
+    }
+    
+    .p-dialog-title {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+    }
+    
+    .p-dialog-header-close,
+    .p-dialog-header-close-icon {
+      background-color: transparent !important;
+      border: none !important;
+      color: var(--font-color) !important;
+      border-radius: 50% !important;
+      width: var.$inputs-size !important;
+      height: var.$inputs-size !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      transition: background-color var.$transition-duration ease !important;
+      box-shadow: none !important;
+      outline: none !important;
+      
+      &:hover {
+        background-color: var(--light-grey) !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      
+      &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      
+      &:active {
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+      
+      &:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+    }
+  }
+  
+  .p-dialog-content {
+    background-color: var(--container-color);
+    color: var(--font-color);
+    font-family: var(--font-familly);
+    line-height: 1.5;
+    padding: var.$padding;
+    font-size: var(--font-size-md);
+    
+    .p-confirm-dialog-icon {
+      margin-right: var.$padding;
+      font-size: var(--font-size-2xl);
+    }
+    
+    .p-confirm-dialog-message {
+      margin-left: 0;
+    }
+  }
+  
+  .p-dialog-footer {
+    background-color: var(--container-color);
+    border-top: 1px solid var(--light-grey);
+    padding: var.$padding;
+    border-radius: 0 0 var.$radius var.$radius;
+    display: flex;
+    justify-content: flex-end;
+    gap: calc(var.$gap / 2);
+    
+    .p-button {
+      margin: 0;
+      
+      // Aligner les boutons PrimeNG avec les boutons de l'app - Spécificité haute
+      &.xprime {
+        height: var.$inputs-size !important;
+        padding: 0 calc(var.$inputs-size / 4) !important;
+        border-radius: var.$inner-radius !important;
+        font-size: var(--font-size-md) !important;
+        font-weight: 500 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: calc(var.$gap / 2) !important;
+        background-color: var(--primary-color) !important;
+        color: var(--font-color-invert) !important;
+        border: none !important;
+        font-family: var(--font-familly) !important;
+        cursor: pointer !important;
+        transition: all var.$transition-duration ease !important;
+        box-shadow: var(--box-shadow) !important;
+        text-decoration: none !important;
+        user-select: none !important;
+        
+        &:hover:not(:disabled) {
+          background-color: var(--primary-color-darker, var(--primary-color)) !important;
+        }
+        
+        &:active:not(:disabled) {
+          background-color: var(--primary-color-darker, var(--primary-color)) !important;
+          transform: translateY(0) !important;
+        }
+        
+        &:focus {
+          outline: none !important;
+          box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2) !important;
+        }
+        
+        &:disabled {
+          background-color: var(--disabled-color) !important;
+          color: var(--font-disabled-color) !important;
+          cursor: not-allowed !important;
+          opacity: 0.6 !important;
+          transform: none !important;
+          box-shadow: none !important;
+        }
+        
+        // Bouton secondaire (annuler)
+        &.p-button-secondary {
+          background-color: transparent !important;
+          color: var(--font-color) !important;
+          border: 2px solid var(--light-grey) !important;
+          
+          &:hover:not(:disabled) {
+            background-color: var(--light-grey) !important;
+            border-color: var(--light-grey) !important;
+          }
+        }
+        
+        // Bouton danger
+        &.p-button-danger {
+          background-color: var(--danger-color) !important;
+          
+          &:hover:not(:disabled) {
+            background-color: var(--danger-color-darker, var(--danger-color)) !important;
+          }
+          
+          &:focus {
+            box-shadow: 0 0 0 2px rgba(var(--danger-color-rgb), 0.2) !important;
+          }
+        }
+        
+        // Bouton success
+        &.p-button-success {
+          background-color: var(--success-color) !important;
+          
+          &:hover:not(:disabled) {
+            background-color: var(--success-color-darker, var(--success-color)) !important;
+          }
+          
+          &:focus {
+            box-shadow: 0 0 0 2px rgba(var(--success-color-rgb), 0.2) !important;
+          }
+        }
+        
+        // Bouton warning
+        &.p-button-warning {
+          background-color: var(--warn-color) !important;
+          
+          &:hover:not(:disabled) {
+            background-color: var(--warn-color-darker, var(--warn-color)) !important;
+          }
+          
+          &:focus {
+            box-shadow: 0 0 0 2px rgba(var(--warn-color-rgb), 0.2) !important;
+          }
+        }
+      }
+    }
+  }
+  
+  // Masquer les bordures indésirables
+  &.p-dialog-draggable {
+    .p-dialog-header {
+      cursor: move;
+    }
+  }
+  
+  // Responsive
+  @media (max-width: 768px) {
+    width: 90vw !important;
+    max-width: 90vw !important;
+    margin: 0 auto;
+    
+    .p-dialog-content {
+      padding: calc(var.$padding / 2);
+    }
+    
+    .p-dialog-footer {
+      padding: calc(var.$padding / 2);
+      flex-direction: column;
+      
+      .p-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Masque de fond (overlay)
+.p-dialog-mask {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+}
+
+// Styles pour les dialogs de confirmation spécifiques
+.p-confirm-dialog {
+  .p-dialog-content {
+    display: flex;
+    align-items: flex-start;
+    
+    .p-confirm-dialog-icon {
+      margin-right: var.$padding;
+      margin-top: 0.25rem;
+      
+      &.pi-exclamation-triangle {
+        color: var(--warn-color);
+      }
+      
+      &.pi-question-circle {
+        color: var(--info-color);
+      }
+      
+      &.pi-info-circle {
+        color: var(--info-color);
+      }
+      
+      &.pi-times-circle {
+        color: var(--danger-color);
+      }
+    }
+    
+    .p-confirm-dialog-message {
+      flex: 1;
+      word-wrap: break-word;
+    }
+  }
+}
+
+// Styles globaux pour tous les boutons PrimeNG dans les dialogs
+.p-dialog .p-dialog-footer .p-button:not(.xprime),
+.p-confirm-dialog .p-dialog-footer .p-button:not(.xprime) {
+  // Forcer l'application de nos styles même sans la classe xprime
+  height: var.$inputs-size !important;
+  padding: 0 calc(var.$inputs-size / 4) !important;
+  border-radius: var.$inner-radius !important;
+  font-size: var(--font-size-md) !important;
+  font-weight: 500 !important;
+  font-family: var(--font-familly) !important;
+  border: none !important;
+  box-shadow: var(--box-shadow) !important;
+  
+  &.p-button-secondary {
+    background-color: transparent !important;
+    color: var(--font-color) !important;
+    border: 2px solid var(--light-grey) !important;
+    
+    &:hover:not(:disabled) {
+      background-color: var(--light-grey) !important;
+    }
+  }
+}
+
+// Force la suppression des bordures sur tous les boutons de fermeture
+.p-dialog .p-dialog-header .p-dialog-header-close,
+.p-confirm-dialog .p-dialog-header .p-dialog-header-close {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  
+  &:hover, &:focus, &:active {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: var(--light-grey) !important;
+  }
+}
+
+// Animation d'entrée/sortie
+.p-dialog-enter-active {
+  animation: p-dialog-enter 0.15s ease-out;
+}
+
+.p-dialog-leave-active {
+  animation: p-dialog-leave 0.15s ease-in;
+}
+
+@keyframes p-dialog-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes p-dialog-leave {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+}
+
+// Styles spéciaux pour les dialogs avec footer sticky
+.p-dialog.xcrm-dialog-with-footer {
+  .p-dialog-content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(90vh - 150px);
+    
+    .confirmation-dialog {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 1rem 1rem 0 1rem;
+      
+      .dialog-content {
+        flex: 1;
+        overflow-y: auto;
+        margin-bottom: 0;
+        padding-right: 0.5rem; // Pour le scrollbar
+      }
+      
+      .dialog-footer {
+        flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
+        background-color: var(--container-color);
+        padding: 1rem 0;
+        margin-top: 1rem;
+        border-top: 1px solid var(--light-grey);
+        z-index: 1;
+      }
+    }
+  }
+}
+
+// Style pour la dialog de création d'événement rapide
+.p-dialog.xcrm-quick-create-dialog {
+  .p-dialog-content {
+    display: flex;
+    flex-direction: column;
+    
+    .xcrm-quick-create-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      
+      .xcrm-dialog-content {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+      }
+      
+      .xcrm-dialog-footer {
+        flex-shrink: 0;
+        background-color: var(--background-color-lighter);
+        border-top: 1px solid var(--border-color, var(--container-color));
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,16 @@
+@use "../core" as core;
+
+$text-sizes: (
+  'xs': core.$base-font-size * 0.75,
+  'sm': core.$font-size-sm,
+  'md': core.$font-size-md,
+  'lg': core.$font-size-lg,
+  'xl': core.$font-size-xl,
+  '2xl': core.$font-size-2xl
+);
+
+@each $name, $size in $text-sizes {
+  .text-#{$name} {
+    font-size: $size;
+  }
+}

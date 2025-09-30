@@ -1,0 +1,28 @@
+.p-select-list.xprime {
+  /* Pour Firefox */
+  .p-select-list-container {
+    scrollbar-width: auto !important;
+    scrollbar-color: grey transparent !important;
+  }
+
+  /* Pour Chrome, Edge, et Safari */
+  .p-select-list-container::-webkit-scrollbar {
+    all: initial !important;
+  }
+
+  .p-select-list-container::-webkit-scrollbar-track {
+    all: initial !important;
+  }
+
+  .p-select-list-container::-webkit-scrollbar-thumb {
+    all: initial !important;
+  }
+
+  .p-select-list-container::-webkit-scrollbar-thumb:hover {
+    all: initial !important;
+  }
+
+  .p-select-list-container::-webkit-scrollbar-thumb:active {
+    all: initial !important;
+  }
+}

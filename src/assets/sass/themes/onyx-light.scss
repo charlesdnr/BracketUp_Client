@@ -1,0 +1,55 @@
+@use "sass:color";
+
+$background-color-theme: hsl(210, 3%, 87%);
+$container-color-theme: color.mix(white, $background-color-theme, 40%);
+
+@use "../core" with ($color-sheme: light,
+  $primary-color: hsl(205, 100%, 50%),
+  $primary-color-rgb: "0, 149, 255",
+  $primary-color-transparent-50: hsla(205, 100%, 50%, 0.1),
+  $primary-color-transparent-200: hsla(205, 100%, 50%, 0.2),
+  $primary-color-transparent-500: hsla(205, 100%, 50%, 0.5),
+  $primary-color-transparent-800: hsla(205, 100%, 50%, 0.8),
+  $background-color: $background-color-theme,
+  $background-color-lighter: hsl(0, 0%, 92%),
+  $background-color-darker: hsl(210, 4%, 82%),
+  $container-color: $container-color-theme,
+  $input-color: white,
+  $danger-color: hsl(5, 100%, 58%),
+  $danger-color-transparent-100: hsla(5, 100%, 58%, 0.1),
+  $danger-color-transparent-200: hsla(5, 100%, 58%, 0.2),
+  $success-color: hsl(103, 100%, 33%),
+  $warn-color: hsl(36, 100%, 50%),
+  $warn-color-transparent-10: hsla(36, 100%, 50%, 0.1),
+  $warn-color-transparent-30: hsla(36, 100%, 50%, 0.3),
+  $info-color: hsl(231, 48%, 48%),
+  $neutral-color: hsl(200, 18%, 46%),
+  $disabled-color: hsla(0, 0%, 0%, 0.12),
+  $font-color: hsl(250, 24%, 15%),
+  $font-secondary-color: hsl(200, 18%, 60%),
+  $font-color-invert: white,
+  $font-disabled-color: hsla(0, 0%, 0%, 0.60),
+  $placeholder-color: hsl(0, 0%, 50%),
+   $radius: 8px,
+  $box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+  $padding: 1.25rem,
+  $inputs-size: 42px,
+  $transition-duration: 0.2s,
+  $gap: 0.75rem,
+  $inner-radius: 6px
+  );
+
+
+@use "../components";
+
+// Thème clair explicite
+html[data-theme="onyx-light"] {
+  @include core.export-vars();
+}
+
+// Thème par défaut selon les préférences système
+:root {
+  @media (prefers-color-scheme: light) {
+    @include core.export-vars();
+  }
+}

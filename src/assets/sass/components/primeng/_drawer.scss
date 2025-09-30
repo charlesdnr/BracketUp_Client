@@ -1,0 +1,10 @@
+@use "../../core";
+
+.p-drawer.xprime {
+  .p-drawer-header {
+    border-bottom: 1px solid var(--light-grey);
+  }
+  .p-drawer-content {
+    padding: 0;
+  }
+}

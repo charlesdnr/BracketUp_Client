@@ -1,0 +1,25 @@
+// PrimeNG ContextMenu styling for xprime class
+.p-contextmenu.xprime {
+  background-color: var(--background-color-lighter);
+  
+
+  .p-contextmenu{
+    width: 100%;
+    height: 100%;
+    color: var(--font-color);
+  }
+
+  .p-contextmenu-item:not(.p-disabled) > .p-contextmenu-item-content:hover {
+    background-color: var(--primary-color-transparent-50);
+  }
+  .p-contextmenu-item.p-focus > .p-contextmenu-item-content {
+    background-color: var(--primary-color-transparent-50);
+  }
+
+  .p-contextmenu-item-link {
+    user-select: none;
+    text-decoration: none;
+    color: var(--font-color);
+    border-bottom: 1px solid var(--light-grey);
+  }
+}
